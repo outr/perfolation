@@ -1,4 +1,9 @@
 # perfolation
+[![Build Status](https://travis-ci.org/outr/perfolation.svg?branch=master)](https://travis-ci.org/outr/perfolation)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/outr/perfolation)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.outr/perfolation_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.outr/perfolation_2.12)
+[![Latest version](https://index.scala-lang.org/outr/perfolation/perfolation/latest.svg)](https://index.scala-lang.org/outr/perfolation)
+
 Performance focused interpolation
 
 Based on the original work of Dmitry Komanov (https://medium.com/@dkomanov/scala-string-interpolation-performance-21dc85e83afd).
