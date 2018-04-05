@@ -8,7 +8,7 @@ class JVMCrossDate(override val milliseconds: Long, c: java.util.Calendar) exten
   override def secondOfMinute: Int = c.get(Calendar.SECOND)
   override def milliOfSecond: Int = c.get(Calendar.MILLISECOND)
   override def isAM: Boolean = c.get(Calendar.AM_PM) == 0
-  override def timeZoneOffset: Int = c.get(Calendar.ZONE_OFFSET)
+  override def timeZoneOffset: Int = c.get(Calendar.ZONE_OFFSET) + c.get(Calendar.DST_OFFSET)
   override def year: Int = c.get(Calendar.YEAR)
   override def month: Int = c.get(Calendar.MONTH)
   override def dayOfWeek: Int = c.get(Calendar.DAY_OF_WEEK)
