@@ -10,7 +10,7 @@ class Java8CrossDate(override val milliseconds: Long, ldt: LocalDateTime) extend
   override def secondOfMinute: Int = ldt.get(ChronoField.SECOND_OF_MINUTE)
   override def milliOfSecond: Int = ldt.get(ChronoField.MILLI_OF_SECOND)
   override def isAM: Boolean = ldt.get(ChronoField.AMPM_OF_DAY) == 0
-  override def timeZoneOffset: Int = TimeZone.getDefault.getOffset(milliseconds)
+  override def timeZoneOffsetMillis: Int = TimeZone.getDefault.getOffset(milliseconds)
   override def year: Int = ldt.get(ChronoField.YEAR)
   override def month: Int = ldt.get(ChronoField.MONTH_OF_YEAR)
   override def dayOfWeek: Int = ldt.get(ChronoField.DAY_OF_WEEK)

@@ -9,7 +9,9 @@ trait CrossDate {
   def secondOfMinute: Int
   def milliOfSecond: Int
   def isAM: Boolean
-  def timeZoneOffset: Int
+  def timeZoneOffsetMillis: Int
+  def timeZoneOffsetHH: String = int(math.abs(timeZoneOffsetMillis / (1000 * 60 * 60)), 2)
+  def timeZoneOffsetMM: String = int(math.abs(timeZoneOffsetMillis / (1000 * 60) % 60), 2)
 
   def year: Int
   def month: Int
@@ -34,7 +36,10 @@ trait CrossDate {
   def L: String = int(milliOfSecond, 3)
   def p: String = if (isAM) "am" else "pm"
   def P: String = if (isAM) "AM" else "PM"
-  def z: String = int(timeZoneOffset, 4)
+  def z: String = {
+    val sign = if (timeZoneOffsetMillis >= 0) "+" else "-"
+    p"$sign$timeZoneOffsetHH$timeZoneOffsetMM"
+  }
   def s: String = secondsOfEpoch.toString
 
   // Date short-hand

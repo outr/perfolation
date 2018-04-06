@@ -8,7 +8,7 @@ class JavaScriptCrossDate(override val milliseconds: Long, d: Date) extends Cros
   override def secondOfMinute: Int = d.getSeconds()
   override def milliOfSecond: Int = d.getMilliseconds()
   override def isAM: Boolean = hour24 < 12
-  override def timeZoneOffset: Int = d.getTimezoneOffset()
+  override def timeZoneOffsetMillis: Int = d.getTimezoneOffset() * 60 * 1000
   override def year: Int = d.getFullYear()
   override def month: Int = d.getMonth()
   override def dayOfWeek: Int = d.getDay()
