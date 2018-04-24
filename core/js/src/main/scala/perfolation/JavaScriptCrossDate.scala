@@ -1,5 +1,6 @@
 package perfolation
 
+import scala.scalajs.js
 import scala.scalajs.js.Date
 
 class JavaScriptCrossDate(override val milliseconds: Long, d: Date) extends CrossDate {
@@ -17,5 +18,9 @@ class JavaScriptCrossDate(override val milliseconds: Long, d: Date) extends Cros
     val diff = d.getTime() - Platform.startOfYear.getTime()
     val oneDay = 1000.0 * 60.0 * 60.0 * 24.0
     math.floor(diff / oneDay).toInt
+  }
+  override def timeZone: String = {
+    val s = d.asInstanceOf[js.Dynamic].toLocaleString("en", js.Dynamic.literal("timeZoneName" -> "short")).asInstanceOf[String]
+    s.split(' ').last
   }
 }

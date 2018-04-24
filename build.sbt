@@ -2,9 +2,9 @@ import sbtcrossproject.{CrossType, crossProject}
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.0.0"
-scalaVersion in ThisBuild := "2.12.4"
-crossScalaVersions in ThisBuild := List("2.12.4", "2.11.12")
+version in ThisBuild := "1.0.1-SNAPSHOT"
+scalaVersion in ThisBuild := "2.12.5"
+crossScalaVersions in ThisBuild := List("2.12.5", "2.11.12")
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
 publishTo in ThisBuild := sonatypePublishTo.value

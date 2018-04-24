@@ -1,6 +1,6 @@
 package perfolation
 
-import java.util.Calendar
+import java.util.{Calendar, TimeZone}
 
 class JVMCrossDate(override val milliseconds: Long, c: java.util.Calendar) extends CrossDate {
   override def hour24: Int = c.get(Calendar.HOUR_OF_DAY)
@@ -14,4 +14,5 @@ class JVMCrossDate(override val milliseconds: Long, c: java.util.Calendar) exten
   override def dayOfWeek: Int = c.get(Calendar.DAY_OF_WEEK)
   override def dayOfMonth: Int = c.get(Calendar.DAY_OF_MONTH)
   override def dayOfYear: Int = c.get(Calendar.DAY_OF_YEAR)
+  override def timeZone: String = c.getTimeZone.getDisplayName(false, TimeZone.SHORT)
 }

@@ -12,6 +12,7 @@ trait CrossDate {
   def timeZoneOffsetMillis: Int
   def timeZoneOffsetHH: String = int(math.abs(timeZoneOffsetMillis / (1000 * 60 * 60)), 2)
   def timeZoneOffsetMM: String = int(math.abs(timeZoneOffsetMillis / (1000 * 60) % 60), 2)
+  def timeZone: String
 
   def year: Int
   def month: Int
@@ -40,7 +41,9 @@ trait CrossDate {
     val sign = if (timeZoneOffsetMillis >= 0) "+" else "-"
     p"$sign$timeZoneOffsetHH$timeZoneOffsetMM"
   }
+  def Z: String = timeZone
   def s: String = secondsOfEpoch.toString
+  def Q: String = milliseconds.toString
 
   // Date short-hand
   def B: String = CrossDate.Month.Long(month)
@@ -48,12 +51,13 @@ trait CrossDate {
   def h: String = CrossDate.Month.Short(month)
   def A: String = CrossDate.Week.Long(dayOfWeek)
   def a: String = CrossDate.Week.Short(dayOfWeek)
+  def C: String = (year / 100).toString
   def Y: String = year.toString
   def y: String = (year % 100).toString
   def j: String = (dayOfYear + 1).toString
   def m: String = int(month + 1, 2)
-  def d: String = int(dayOfMonth + 1, 2)
-  def e: String = (dayOfMonth + 1).toString
+  def d: String = int(dayOfMonth, 2)
+  def e: String = dayOfMonth.toString
   def R: String = p"$H:$M"
   def T: String = p"$H:$M:$S"
   def r: String = p"$I:$M:$S:$p"
