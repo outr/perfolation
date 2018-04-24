@@ -2,7 +2,7 @@ import sbtcrossproject.{CrossType, crossProject}
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.0.1"
+version in ThisBuild := "1.0.2-SNAPSHOT"
 scalaVersion in ThisBuild := "2.12.5"
 crossScalaVersions in ThisBuild := List("2.12.5", "2.11.12")
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
@@ -11,7 +11,7 @@ publishTo in ThisBuild := sonatypePublishTo.value
 sonatypeProfileName in ThisBuild := "com.outr"
 publishMavenStyle in ThisBuild := true
 licenses in ThisBuild := Seq("MIT" -> url("https://github.com/outr/perfolation/blob/master/LICENSE"))
-sonatypeProjectHosting in ThisBuild := Some(xerial.sbt.Sonatype.GithubHosting("outr", "perfolation", "matt@outr.com"))
+sonatypeProjectHosting in ThisBuild := Some(xerial.sbt.Sonatype.GitHubHosting("outr", "perfolation", "matt@outr.com"))
 homepage in ThisBuild := Some(url("https://github.com/outr/perfolation"))
 scmInfo in ThisBuild := Some(
   ScmInfo(
@@ -45,7 +45,10 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .dependsOn(macros)
   .settings(
     name := "perfolation",
-    libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
+    libraryDependencies ++= Seq(
+      "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+      "org.scalatest" %%% "scalatest" % "3.2.0-SNAP10" % "test"
+    )
   )
   .nativeSettings(
     scalaVersion := "2.11.12"
