@@ -3,8 +3,8 @@ import sbtcrossproject.{CrossType, crossProject}
 name := "perfolation"
 organization in ThisBuild := "com.outr"
 version in ThisBuild := "1.0.2-SNAPSHOT"
-scalaVersion in ThisBuild := "2.12.5"
-crossScalaVersions in ThisBuild := List("2.12.5", "2.11.12")
+scalaVersion in ThisBuild := "2.12.6"
+crossScalaVersions in ThisBuild := List("2.12.6", "2.11.12")
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
 publishTo in ThisBuild := sonatypePublishTo.value
@@ -22,6 +22,10 @@ scmInfo in ThisBuild := Some(
 developers in ThisBuild := List(
   Developer(id="darkfrog", name="Matt Hicks", email="matt@matthicks.com", url=url("http://matthicks.com"))
 )
+
+// Dependency versions
+val scalaJSLocales: String = "0.5.5-cldr31"
+val scalaTest: String = "3.0.5"
 
 lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .crossType(CrossType.Full)
@@ -46,8 +50,18 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .settings(
     name := "perfolation",
     libraryDependencies ++= Seq(
-      "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-      "org.scalatest" %%% "scalatest" % "3.2.0-SNAP10" % "test"
+      "org.scala-lang" % "scala-reflect" % scalaVersion.value
+    )
+  )
+  .jvmSettings(
+    libraryDependencies ++= Seq(
+      "org.scalatest" %%% "scalatest" % scalaTest % "test"
+    )
+  )
+  .jsSettings(
+    libraryDependencies ++= Seq(
+      "io.github.cquiroz" %%% "scala-java-locales" % scalaJSLocales,
+      "org.scalatest" %%% "scalatest" % scalaTest % "test"
     )
   )
   .nativeSettings(
