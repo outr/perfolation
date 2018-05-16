@@ -8,10 +8,12 @@ Performance focused interpolation
 
 Based on the original work of Dmitry Komanov (https://medium.com/@dkomanov/scala-string-interpolation-performance-21dc85e83afd).
 
+Note: the current version of the interpolation Macro is a complete rip-off of [fast-string-interpolator](https://github.com/Sizmek/fast-string-interpolator) as their performance is superior, but they don't currently support Scala.js or Scala Native.
+
 ## What is it?
 
 As shown in the article by Dmitry Komanov, Scala's `s""` and `f""` interpolation are incredibly slow. This is an effort
-make String interpolation as fast as it should be.
+make String interpolation as fast as it should be with the additional features of type-safe formatting with code-completion.
 
 ## Main Features
 
