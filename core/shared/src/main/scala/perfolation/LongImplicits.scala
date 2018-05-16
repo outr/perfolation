@@ -12,7 +12,7 @@ class LongImplicits(val l: Long) extends AnyVal {
         maxI: Int = 9,
         maxF: Int = 100,
         g: Boolean = true,
-        c: Currency = Currency.getInstance(Locale.getDefault),
+        c: Option[Currency] = None,
         rm: RoundingMode = RoundingMode.HALF_UP): String = {
     NumberFormatUtil(i, f, maxI, maxF, g, c, rm).format(l)
   }

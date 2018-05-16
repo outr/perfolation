@@ -2,9 +2,12 @@ package perfolation
 
 import java.math.RoundingMode
 import java.text.NumberFormat
-import java.util.{Currency, Locale}
+import java.util.Currency
 
 object NumberFormatUtil {
+  // Make sure the platform is initialized
+  Platform
+
   private var map = Map.empty[String, NumberFormatter]
 
   def apply(i: Int = 1,
@@ -12,7 +15,7 @@ object NumberFormatUtil {
             maxI: Int = 9,
             maxF: Int = 100,
             g: Boolean = true,
-            c: Currency = Currency.getInstance(Locale.getDefault),
+            c: Option[Currency] = None,
             rm: RoundingMode = RoundingMode.HALF_UP): NumberFormatter = synchronized {
     val key: String = p"$i,$f,$maxI,$maxF,$g,$c,$rm"
     map.get(key) match {
@@ -58,12 +61,12 @@ object NumberFormatUtil {
                         maxI: Int,
                         maxF: Int,
                         g: Boolean,
-                        c: Currency,
+                        c: Option[Currency],
                         rm: RoundingMode) {
     private lazy val nf = {
       val nf = NumberFormat.getInstance()
       nf.setGroupingUsed(g)
-      nf.setCurrency(c)
+      c.foreach(nf.setCurrency)
       nf.setMaximumFractionDigits(maxF)
       nf.setMinimumFractionDigits(f)
       nf.setMaximumIntegerDigits(maxI)
