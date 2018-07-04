@@ -11,6 +11,6 @@ class DoubleImplicits(val d: Double) extends AnyVal {
         g: Boolean = true,
         c: Option[Currency] = None,
         rm: RoundingMode = RoundingMode.HALF_UP): String = {
-    NumberFormatUtil(i, f, maxI, maxF, g, c, rm).format(d)
+    ThreadLocalNumberFormat(i, f, maxI, maxF, g, c, rm).format(d)
   }
 }
