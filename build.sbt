@@ -71,3 +71,13 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
 lazy val coreJS = core.js
 lazy val coreJVM = core.jvm
 lazy val coreNative = core.native
+
+lazy val benchmarks = project
+  .in(file("benchmarks"))
+  .enablePlugins(JmhPlugin)
+  .dependsOn(coreJVM)
+  .settings(
+    libraryDependencies ++= Seq(
+      "pl.project13.scala" % "sbt-jmh-extras" % "0.3.3"
+    )
+  )
