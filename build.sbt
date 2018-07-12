@@ -2,7 +2,7 @@ import sbtcrossproject.{CrossType, crossProject}
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.0.2"
+version in ThisBuild := "1.0.3-SNAPSHOT"
 scalaVersion in ThisBuild := "2.12.6"
 crossScalaVersions in ThisBuild := List("2.12.6", "2.11.12")
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
@@ -24,7 +24,7 @@ developers in ThisBuild := List(
 )
 
 // Dependency versions
-val scalaJSLocales: String = "0.5.4-cldr31"
+val scalaJSLocales: String = "0.5.5-cldr31"
 val scalaTest: String = "3.0.5"
 
 lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
