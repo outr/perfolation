@@ -48,7 +48,7 @@ Support for Scala (2.11, 2.12), Scala.js (2.11, 2.12), and ScalaNative (2.11)
 SBT Dependencies:
 
 ```
-libraryDependencies += "com.outr" %%% "perfolation" % "1.0.2"
+libraryDependencies += "com.outr" %%% "perfolation" % "1.0.4"
 ```
 
 Usage:
