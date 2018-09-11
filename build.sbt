@@ -24,7 +24,6 @@ developers in ThisBuild := List(
 )
 
 // Dependency versions
-val scalaJSLocales: String = "0.5.4-cldr31"
 val scalaTest: String = "3.0.5"
 
 lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
@@ -60,7 +59,6 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   )
   .jsSettings(
     libraryDependencies ++= Seq(
-      "io.github.cquiroz" %%% "scala-java-locales" % scalaJSLocales,
       "org.scalatest" %%% "scalatest" % scalaTest % "test"
     )
   )

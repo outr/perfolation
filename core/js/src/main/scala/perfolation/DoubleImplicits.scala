@@ -1,12 +1,9 @@
 package perfolation
 
 import java.math.RoundingMode
-import java.util.{Currency, Locale}
+import java.util.Currency
 
-class LongImplicits(val l: Long) extends AnyVal {
-  def t: CrossDate = CrossDate(l)
-
-  // Number format
+class DoubleImplicits(val d: Double) extends AnyVal {
   def f(i: Int = 1,
         f: Int = 2,
         maxI: Int = 9,
@@ -14,6 +11,7 @@ class LongImplicits(val l: Long) extends AnyVal {
         g: Boolean = true,
         c: Option[Currency] = None,
         rm: RoundingMode = RoundingMode.HALF_UP): String = {
-    ThreadLocalNumberFormat(i, f, maxI, maxF, g, c, rm).format(l)
+    d.toString
+//    ThreadLocalNumberFormat(i, f, maxI, maxF, g, c, rm).format(d)
   }
 }
