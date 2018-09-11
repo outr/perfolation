@@ -1,0 +1,2 @@
+install:
+  - sbt +macrosJS/publishM2 +macrosJVM/publishM2 +coreJS/publishM2 +coreJVM/publishM2
