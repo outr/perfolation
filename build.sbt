@@ -24,8 +24,9 @@ developers in ThisBuild := List(
 )
 
 // Dependency versions
-val scalaJSLocales: String = "0.5.4-cldr31"
-val scalaTest: String = "3.0.5"
+val scalatestVersion = "3.2.0-SNAP10"
+val scalacheckVersion = "1.14.0"
+val testInterfaceVersion = "0.3.7"
 
 lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .crossType(CrossType.Full)
@@ -50,22 +51,22 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .settings(
     name := "perfolation",
     libraryDependencies ++= Seq(
-      "org.scala-lang" % "scala-reflect" % scalaVersion.value
+      "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+      "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
     )
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "org.scalatest" %%% "scalatest" % scalaTest % "test"
-    )
-  )
-  .jsSettings(
-    libraryDependencies ++= Seq(
-      "io.github.cquiroz" %%% "scala-java-locales" % scalaJSLocales,
-      "org.scalatest" %%% "scalatest" % scalaTest % "test"
+      "org.scalacheck" %% "scalacheck" % scalacheckVersion % "test"
     )
   )
   .nativeSettings(
-    scalaVersion := "2.11.12"
+    nativeLinkStubs := true,
+    libraryDependencies ++= Seq(
+      "org.scala-native" %%% "test-interface" % testInterfaceVersion
+    ),
+    scalaVersion := "2.11.12",
+    crossScalaVersions := Seq("2.11.12")
   )
 
 lazy val coreJS = core.js
