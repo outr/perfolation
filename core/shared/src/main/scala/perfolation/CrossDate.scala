@@ -2,6 +2,8 @@ package perfolation
 
 import NumberFormatUtil._
 
+import scala.compat.Platform
+
 trait CrossDate {
   /**
     * A field containing the numeric value corresponding to the current time - the number of milliseconds elapsed
@@ -29,7 +31,8 @@ trait CrossDate {
     */
   def isAM: Boolean
   /**
-    * Evaluates to the time difference between UTC time and local time, in minutes.
+    * Evaluates to the time difference between UTC time and local time, in minutes. If UTC is in the future relative
+    * to local time, this will be positive.
     */
   def timeZoneOffsetMillis: Int
   /**
@@ -54,7 +57,7 @@ trait CrossDate {
     */
   def month: Int
   /**
-    * Evaluates to the day of the week (0-6) for the specified date according to local time.
+    * Evaluates to the day of the week (1-7) for the specified date according to local time.
     */
   def dayOfWeek: Int
   /**
@@ -70,7 +73,8 @@ trait CrossDate {
     * Evaluates to the standard 12-hour time format for the current date.
     */
   def hour12: Int = hour24 match {
-    case i if i > 11 => i - 11
+    case 0 => 12
+    case i if i > 12 => i - 12
     case i => i
   }
   /**
@@ -133,7 +137,7 @@ trait CrossDate {
   def Z: String = timeZone
   /**
     * A field containing the numeric value in String form corresponding to the current time - the number of seconds elapsed
-    * * since January 1, 1970 00:00:00 UTC, with leap seconds ignored. Roughly the point in time this date represents.
+    * since January 1, 1970 00:00:00 UTC, with leap seconds ignored. Roughly the point in time this date represents.
     */
   def s: String = secondsOfEpoch.toString
   /**
@@ -158,11 +162,11 @@ trait CrossDate {
   /**
     * Locale-specific full name of the day of the week, e.g. "Sunday", "Monday"
     */
-  def A: String = CrossDate.Week.Long(dayOfWeek)
+  def A: String = CrossDate.Week.Long(dayOfWeek - 1)
   /**
     * Locale-specific short name of the day of the week, e.g. "Sun", "Mon"
     */
-  def a: String = CrossDate.Week.Short(dayOfWeek)
+  def a: String = CrossDate.Week.Short(dayOfWeek - 1)
   /**
     * Four-digit year divided by 100, formatted as two digits with leading zero as necessary, i.e. 00 - 99
     */

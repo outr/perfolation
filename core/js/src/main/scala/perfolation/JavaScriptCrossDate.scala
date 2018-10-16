@@ -12,12 +12,12 @@ class JavaScriptCrossDate(override val milliseconds: Long, d: Date) extends Cros
   override def timeZoneOffsetMillis: Int = d.getTimezoneOffset() * 60 * 1000
   override def year: Int = d.getFullYear()
   override def month: Int = d.getMonth()
-  override def dayOfWeek: Int = d.getDay()
+  override def dayOfWeek: Int = d.getDay() + 1
   override def dayOfMonth: Int = d.getDate()
   override def dayOfYear: Int = {
     val diff = d.getTime() - Platform.startOfYear.getTime()
     val oneDay = 1000.0 * 60.0 * 60.0 * 24.0
-    math.floor(diff / oneDay).toInt
+    math.floor(diff / oneDay).toInt - 1
   }
   override def timeZone: String = {
     val s = d.asInstanceOf[js.Dynamic].toLocaleString("en", js.Dynamic.literal("timeZoneName" -> "short")).asInstanceOf[String]
