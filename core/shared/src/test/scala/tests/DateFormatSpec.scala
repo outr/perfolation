@@ -87,7 +87,7 @@ class DateFormatSpec extends WordSpec with Matchers {
       gmtDate.t.r should be("04:56:05:pm")
       gmtDate.t.D should be("04/24/18")
       gmtDate.t.F should be("2018-04-24")
-      gmtDate.t.c // relative to testing environment; relies on Z
+      //gmtDate.t.c // relative to testing environment; relies on Z
     }
   }
 }
