@@ -1,9 +1,8 @@
 package perfolation
 
 import scala.scalanative.posix.timeOps.tmOps
+import scala.scalanative.posix.time.{time_t, tzset, localtime, timezone, tzname}
 import scala.scalanative.native.{Ptr, fromCString}
-import scala.scalanative.posix.time._
-
 
 class NativeCrossDate(override val milliseconds: Long, dms: Ptr[time_t]) extends CrossDate {
 
