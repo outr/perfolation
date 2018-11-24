@@ -1,11 +1,14 @@
 package perfolation
 
-import java.util.Calendar
+import scala.scalanative.native.stackalloc
+import scala.scalanative.posix.time.time_t
 
 object Platform {
   def createDate(l: Long): CrossDate = {
-    val c = Calendar.getInstance()
-    c.setTimeInMillis(l)
-    new JVMCrossDate(l, c)
+
+    val bmsptr = stackalloc[time_t]
+    !bmsptr = l / 1000L
+
+    new NativeCrossDate(l, bmsptr)
   }
 }

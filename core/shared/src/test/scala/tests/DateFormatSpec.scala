@@ -1,5 +1,7 @@
 package tests
 
+import java.util.{Calendar, TimeZone}
+
 import org.scalatest.{Matchers, WordSpec}
 
 class DateFormatSpec extends WordSpec with Matchers {
@@ -13,7 +15,7 @@ class DateFormatSpec extends WordSpec with Matchers {
     "retrieve millisecond info" in {
       date1.t.milliseconds should be(1524588965775L)
       gmtDate.t.milliOfSecond should be(775)
-      gmtDate.t.timeZoneOffsetMillis // is tested in other tests
+      gmtDate.t.timeZoneOffsetMillis
       date1.t.Q should be("1524588965775")
       gmtDate.t.L should be("775")
     }
@@ -74,11 +76,11 @@ class DateFormatSpec extends WordSpec with Matchers {
     }
 
     "retrieve miscellaneous info" in {
-      gmtDate.t.timeZoneOffsetMM // can only be tested by directly redefining the method
-      gmtDate.t.timeZoneOffsetHH // can only be tested by directly redefining the method
-      gmtDate.t.timeZone // relative to the testing environment
-      gmtDate.t.z // relative to the testing environment; relies on timeZone
-      gmtDate.t.Z // relative to the testing environment; relies on timeZone
+      gmtDate.t.timeZoneOffsetMM //should be("240") enter your timezone offset minutes here
+      gmtDate.t.timeZoneOffsetHH //should be("04") enter your timezone offset hours here
+      gmtDate.t.timeZone //should be("AST") enter your timezone abbreviation here
+      gmtDate.t.z //should be("+0400") enter your offset hours here
+      gmtDate.t.Z //should be("AST") enter your timezone abbreviation here
     }
 
     "format a date properly" in {
@@ -87,7 +89,7 @@ class DateFormatSpec extends WordSpec with Matchers {
       gmtDate.t.r should be("04:56:05:pm")
       gmtDate.t.D should be("04/24/18")
       gmtDate.t.F should be("2018-04-24")
-      gmtDate.t.c // relative to testing environment; relies on Z
+      gmtDate.t.c //should be("Tues Apr 24 16:56:05 +0400 2018") relative to testing environment; enter your time zone info
     }
   }
 }

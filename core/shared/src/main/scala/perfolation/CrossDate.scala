@@ -38,7 +38,7 @@ trait CrossDate {
   /**
     * Evaluates to the time difference between UTC time and local time, in minutes.
     */
-  def timeZoneOffsetMM: String = int(math.abs(timeZoneOffsetMillis / (1000 * 60) % 60), 2)
+  def timeZoneOffsetMM: String = int(math.abs(timeZoneOffsetMillis / (1000 * 60)), 2)
   /**
     * Evaluates to the time difference between UTC time and local time, in hours.
     */
