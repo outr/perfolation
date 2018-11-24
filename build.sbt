@@ -1,10 +1,10 @@
-import sbtcrossproject.{CrossType, crossProject}
+import sbtcrossproject.CrossPlugin.autoImport.crossProject
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.0.4"
-scalaVersion in ThisBuild := "2.12.6"
-crossScalaVersions in ThisBuild := List("2.12.6", "2.11.12")
+version in ThisBuild := "1.1.0-SNAPSHOT"
+scalaVersion in ThisBuild := "2.12.7"
+crossScalaVersions in ThisBuild := List("2.12.7", "2.11.12")
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
 publishTo in ThisBuild := sonatypePublishTo.value
@@ -29,7 +29,6 @@ val scalacheckVersion = "1.14.0"
 val testInterfaceVersion = "0.3.7"
 
 lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
-  .crossType(CrossType.Full)
   .in(file("macros"))
   .settings(
     name := "perfolation-macros",
@@ -45,7 +44,6 @@ lazy val macrosJVM = macros.jvm
 lazy val macrosNative = macros.native
 
 lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
-  .crossType(CrossType.Full)
   .in(file("core"))
   .dependsOn(macros)
   .settings(

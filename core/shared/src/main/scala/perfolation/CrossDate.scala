@@ -2,9 +2,7 @@ package perfolation
 
 import NumberFormatUtil._
 
-import scala.compat.Platform
-
-trait CrossDate {
+trait CrossDate extends Any {
   /**
     * A field containing the numeric value corresponding to the current time - the number of milliseconds elapsed
     * since January 1, 1970 00:00:00 UTC, with leap seconds ignored. Roughly the point in time this date represents.

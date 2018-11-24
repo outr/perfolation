@@ -6,6 +6,6 @@ object Platform {
   def createDate(l: Long): CrossDate = {
     val c = Calendar.getInstance()
     c.setTimeInMillis(l)
-    new JVMCrossDate(l, c)
+    new JVMCrossDate(c)
   }
 }
