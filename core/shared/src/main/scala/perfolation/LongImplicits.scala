@@ -8,7 +8,7 @@ class LongImplicits(val l: Long) extends AnyVal {
 
   // Number format
   def f(i: Int = 1,
-        f: Int = 2,
+        f: Int = 0,
         maxI: Int = 9,
         maxF: Int = 100,
         g: Boolean = true,

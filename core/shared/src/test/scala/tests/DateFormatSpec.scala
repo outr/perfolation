@@ -1,7 +1,5 @@
 package tests
 
-import java.util.{Calendar, TimeZone}
-
 import org.scalatest.{Matchers, WordSpec}
 
 class DateFormatSpec extends WordSpec with Matchers {
