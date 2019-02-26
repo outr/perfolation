@@ -16,7 +16,8 @@ class JavaScriptCrossDate(val date: Date) extends AnyVal with CrossDate {
   override def dayOfWeek: Int = date.getDay() + 1
   override def dayOfMonth: Int = date.getDate()
   override def dayOfYear: Int = {
-    val diff = date.getTime() - Platform.startOfYear.getTime()
+    val beginning = new Date(date.getFullYear(), 0, 0)
+    val diff = date.getTime() - beginning.getTime()
     val oneDay = 1000.0 * 60.0 * 60.0 * 24.0
     math.floor(diff / oneDay).toInt - 1
   }
