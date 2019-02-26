@@ -10,7 +10,7 @@ class NativeCrossDate(override val milliseconds: Long, dms: Ptr[time_t]) extends
   // tmOps object that allows us to access localtime data
   val date = new tmOps(localtime(dms))
 
-  override def hour24: Int = date.tm_hour
+  override def hour24: Int = date.tm_hour - 1
   override def minuteOfHour: Int = date.tm_min
   override def secondOfMinute: Int = date.tm_sec
   override def milliOfSecond: Int = (milliseconds % 1000L).asInstanceOf[Int]
