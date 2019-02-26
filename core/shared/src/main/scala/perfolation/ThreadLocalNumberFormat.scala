@@ -12,19 +12,19 @@ object ThreadLocalNumberFormat {
     override protected def initialValue(): NumberFormat = NumberFormat.getInstance()
   }
 
-  protected[perfolation] def apply(i: Int = 1,
-            f: Int = 2,
-            maxI: Int = 9,
-            maxF: Int = 100,
-            g: Boolean = true,
-            c: Option[Currency] = None,
-            rm: RoundingMode = RoundingMode.HALF_UP): NumberFormat = {
+  protected[perfolation] def apply(i: Int,
+                                   f: Int,
+                                   maxI: Int,
+                                   maxF: Int,
+                                   g: Boolean,
+                                   c: Option[Currency],
+                                   rm: RoundingMode): NumberFormat = {
     val nf = threadLocalNumberFormat.get()
     nf.setGroupingUsed(g)
     c.foreach(nf.setCurrency)
-    nf.setMaximumFractionDigits(maxF)
+    nf.setMaximumFractionDigits(if (maxF == -1) f else maxF)
     nf.setMinimumFractionDigits(f)
-    nf.setMaximumIntegerDigits(maxI)
+    nf.setMaximumIntegerDigits(if (maxI == -1) i else maxI)
     nf.setMinimumIntegerDigits(i)
     nf.setParseIntegerOnly(maxF == 0)
     nf.setRoundingMode(rm)
