@@ -10,7 +10,7 @@ class JavaScriptCrossDate(val date: Date) extends AnyVal with CrossDate {
   override def secondOfMinute: Int = date.getSeconds()
   override def milliOfSecond: Int = date.getMilliseconds()
   override def isAM: Boolean = hour24 < 12
-  override def timeZoneOffsetMillis: Int = date.getTimezoneOffset() * 60 * 1000
+  override def timeZoneOffsetMillis: Int = -date.getTimezoneOffset() * 60 * 1000
   override def year: Int = date.getFullYear()
   override def month: Int = date.getMonth()
   override def dayOfWeek: Int = date.getDay() + 1

@@ -1,6 +1,7 @@
 package perfolation.numeric
 
 object FastNumber {
+  private val ExtraZeroesRegex = """(\d+)[.]([0-9]+?)0+""".r
   private val threadLocal = new ThreadLocal[FastNumber] {
     override def initialValue(): FastNumber = new FastNumber
   }
@@ -18,7 +19,10 @@ class FastNumber {
 
   def set(value: BigDecimal): Unit = {
     clear()
-    val s = value.toString
+    val s = value.toString match {
+      case FastNumber.ExtraZeroesRegex(i, d) => s"$i.$d"
+      case v => v
+    }
     val decimal = s.indexOf('.')
 
     if (decimal != -1) {
