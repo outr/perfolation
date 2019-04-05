@@ -36,11 +36,11 @@ trait CrossDate extends Any {
   /**
     * Evaluates to the time difference between UTC time and local time, in minutes.
     */
-  def timeZoneOffsetMM: String = int(math.abs(timeZoneOffsetMillis / (1000 * 60)), 2)
+  def timeZoneOffsetMM: Int = math.abs(timeZoneOffsetMillis / (1000 * 60))
   /**
     * Evaluates to the time difference between UTC time and local time, in hours.
     */
-  def timeZoneOffsetHH: String = int(math.abs(timeZoneOffsetMillis / (1000 * 60 * 60)), 2)
+  def timeZoneOffsetHH: Int = math.abs(timeZoneOffsetMillis / (1000 * 60 * 60))
   /**
     * A string representing the abbreviation for the time zone. This value will be adjusted as necessary for Daylight Saving Time.
     */
@@ -127,7 +127,7 @@ trait CrossDate extends Any {
     */
   def z: String = {
     val sign = if (timeZoneOffsetMillis >= 0) "+" else "-"
-    p"$sign$timeZoneOffsetHH$timeZoneOffsetMM"
+    p"$sign${timeZoneOffsetHH.f(2)}$timeZoneOffsetMM"
   }
   /**
     * A string representing the abbreviation for the time zone. This value will be adjusted as necessary for Daylight Saving Time.
