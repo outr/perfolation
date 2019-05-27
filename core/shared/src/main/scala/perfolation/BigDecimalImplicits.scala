@@ -2,7 +2,7 @@ package perfolation
 
 import perfolation.numeric.{Grouping, NumericFormatter, RoundingMode}
 
-class DoubleImplicits(val d: Double) extends AnyVal {
+class BigDecimalImplicits(val d: BigDecimal) extends AnyVal {
   /**
     * Format a numeric value
     *
