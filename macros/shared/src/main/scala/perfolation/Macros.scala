@@ -7,7 +7,7 @@ import scala.reflect.macros.blackbox
 
 @compileTimeOnly("Enable macros to expand")
 object Macros {
-  def p(c: blackbox.Context)(args: c.Expr[Any]*): c.Expr[String] = px(c)(args: _*)(scala.StringContext.treatEscapes)
+  def p(c: blackbox.Context)(args: c.Expr[Any]*): c.Expr[String] = px(c)(args: _*)(scala.StringContext.processEscapes)
   def raw(c: blackbox.Context)(args: c.Expr[Any]*): c.Expr[String] = px(c)(args: _*)(identity)
 
   private[this] def px(c: blackbox.Context)(args: c.Expr[Any]*)(process: String => String): c.Expr[String] = {

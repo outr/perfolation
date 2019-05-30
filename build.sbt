@@ -4,7 +4,7 @@ name := "perfolation"
 organization in ThisBuild := "com.outr"
 version in ThisBuild := "1.1.2-SNAPSHOT"
 scalaVersion in ThisBuild := "2.12.8"
-crossScalaVersions in ThisBuild := List("2.12.8", "2.11.12")
+crossScalaVersions in ThisBuild := List("2.12.8", "2.11.12", "2.13.0-RC2")
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
 publishTo in ThisBuild := sonatypePublishTo.value
@@ -24,9 +24,9 @@ developers in ThisBuild := List(
 )
 
 // Dependency versions
-val scalatestVersion = "3.2.0-SNAP10"
+val scalatestVersion = "3.1.0-SNAP11"
 val scalacheckVersion = "1.14.0"
-val testInterfaceVersion = "0.3.7"
+val testInterfaceVersion = "0.3.9"
 
 lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .in(file("macros"))
