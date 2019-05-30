@@ -51,5 +51,9 @@ class NumberFormatSpec extends WordSpec with Matchers {
       400.123.f(2) should be("400.12")
       4.126.f(2) should be("04.13")
     }
+    "format a BigDecimal to 0 digits" in {
+      BigDecimal(6481415348.78).f(f = 0) should be("6481415349")
+      BigDecimal(9999999999.99).f(f = 0) should be("10000000000")
+    }
   }
 }

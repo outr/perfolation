@@ -13,8 +13,17 @@ object FastNumber {
   }
 }
 
+/**
+  * FastNumber is a mutable, thread-local instance used for quick operations on numeric values
+  */
 class FastNumber {
+  /**
+    * Values are set right-aligned in the array with spaces representing non-values
+    */
   val integer: Array[Char] = new Array[Char](255)
+  /**
+    * Values are set left-aligned in the array with spaces representing non-values
+    */
   val fraction: Array[Char] = new Array[Char](255)
 
   def set(value: BigDecimal): Unit = {
@@ -94,14 +103,29 @@ class FastNumber {
     integer(position) = char
   }
 
-  private def incrementFraction(index: Int): Unit = {
+  private def incrementFraction(index: Int): Unit = if (index == -1) {    // Increment integer
+    incrementInteger(integer.length - 1)
+  } else {
     val v = fraction(index).asDigit
     if (v < 9) {
       val char: Char = Character.forDigit(v + 1, 10)
       fraction(index) = char
     } else {
-      fraction(index) = 0
+      fraction(index) = '0'
       incrementFraction(index - 1)
+    }
+  }
+
+  private def incrementInteger(index: Int): Unit = {
+    val v = integer(index).asDigit
+    if (integer(index) == ' ') {
+      integer(index) = '1'
+    } else if (v < 9) {
+      val char: Char = Character.forDigit(v + 1, 10)
+      integer(index) = char
+    } else {
+      integer(index) = '0'
+      incrementInteger(index - 1)
     }
   }
 
