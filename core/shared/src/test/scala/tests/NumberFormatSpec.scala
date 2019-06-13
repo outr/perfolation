@@ -55,5 +55,11 @@ class NumberFormatSpec extends WordSpec with Matchers {
       BigDecimal(6481415348.78).f(f = 0) should be("6481415349")
       BigDecimal(9999999999.99).f(f = 0) should be("10000000000")
     }
+    "format a negative number properly" in {
+      (-100.0).f(2) should be("-100.00")
+      (-0.5).f(2) should be("-0.50")
+      (-0.5).f(2, g = Grouping.US) should be("-0.50")
+      (-444).f(g = Grouping.US) should be("-444")
+    }
   }
 }

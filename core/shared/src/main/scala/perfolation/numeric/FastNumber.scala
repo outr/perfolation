@@ -90,7 +90,7 @@ class FastNumber {
 
   def group(grouping: Grouping, offset: Int = 0): Unit = if (grouping.every > 0) {
     val position = integer.length - (offset + grouping.every + 1)
-    if (integer(position) != ' ') {
+    if (integer(position) != ' ' && integer(position) != '-') {
       insertInteger(grouping.char, position)
       group(grouping, offset + grouping.every + 1)
     }
