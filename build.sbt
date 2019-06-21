@@ -2,9 +2,9 @@ import sbtcrossproject.CrossPlugin.autoImport.crossProject
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.1.3"
-scalaVersion in ThisBuild := "2.12.8"
-crossScalaVersions in ThisBuild := List("2.12.8", "2.11.12", "2.13.0-RC2")
+version in ThisBuild := "1.1.4-SNAPSHOT"
+scalaVersion in ThisBuild := "2.13.0"
+crossScalaVersions in ThisBuild := List("2.12.8", "2.11.12", "2.13.0")
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
 publishTo in ThisBuild := sonatypePublishTo.value
@@ -24,7 +24,7 @@ developers in ThisBuild := List(
 )
 
 // Dependency versions
-val scalatestVersion = "3.1.0-SNAP11"
+val scalatestVersion = "3.1.0-SNAP13"
 val scalacheckVersion = "1.14.0"
 val testInterfaceVersion = "0.3.9"
 
@@ -77,6 +77,6 @@ lazy val benchmarks = project
   .dependsOn(coreJVM)
   .settings(
     libraryDependencies ++= Seq(
-      "pl.project13.scala" % "sbt-jmh-extras" % "0.3.3"
+      "pl.project13.scala" % "sbt-jmh-extras" % "0.3.7"
     )
   )

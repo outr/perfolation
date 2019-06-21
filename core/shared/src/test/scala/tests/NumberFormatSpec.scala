@@ -1,9 +1,10 @@
 package tests
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.Matchers
 import perfolation.numeric.{FastNumber, Grouping, RoundingMode}
 
-class NumberFormatSpec extends WordSpec with Matchers {
+class NumberFormatSpec extends AnyWordSpec with Matchers {
   "Number Formatting" should {
     import perfolation._
 

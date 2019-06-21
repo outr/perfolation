@@ -1,8 +1,9 @@
 package tests
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.Matchers
 
-class DateFormatSpec extends WordSpec with Matchers {
+class DateFormatSpec extends AnyWordSpec with Matchers {
   "Date Formatting" should {
     import perfolation._
 
