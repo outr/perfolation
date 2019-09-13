@@ -2,7 +2,7 @@ import sbtcrossproject.CrossPlugin.autoImport.crossProject
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.1.4"
+version in ThisBuild := "1.1.5-SNAPSHOT"
 scalaVersion in ThisBuild := "2.13.0"
 crossScalaVersions in ThisBuild := List("2.12.8", "2.11.12", "2.13.0")
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
@@ -70,6 +70,33 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
 lazy val coreJS = core.js
 lazy val coreJVM = core.jvm
 lazy val coreNative = core.native
+
+lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
+  .in(file("unit"))
+  .dependsOn(core)
+  .settings(
+    name := "perfolation-unit",
+    libraryDependencies ++= Seq(
+      "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
+    )
+  )
+  .jvmSettings(
+    libraryDependencies ++= Seq(
+      "org.scalacheck" %% "scalacheck" % scalacheckVersion % "test"
+    )
+  )
+  .nativeSettings(
+    nativeLinkStubs := true,
+    libraryDependencies ++= Seq(
+      "org.scala-native" %%% "test-interface" % testInterfaceVersion
+    ),
+    scalaVersion := "2.11.12",
+    crossScalaVersions := Seq("2.11.12")
+  )
+
+lazy val unitJS = unit.js
+lazy val unitJVM = unit.jvm
+lazy val unitNative = unit.native
 
 lazy val benchmarks = project
   .in(file("benchmarks"))
