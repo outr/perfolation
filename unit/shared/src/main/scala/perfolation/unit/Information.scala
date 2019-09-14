@@ -111,13 +111,3 @@ object Information {
   def useBase1000(): Unit = useBase10()
   def useDecimal(): Unit = useBase10()
 }
-
-case class InformationDetail(abbreviation: String, full: String)
-
-sealed trait ShowUnit
-
-object ShowUnit {
-  case object None extends ShowUnit
-  case object Abbreviation extends ShowUnit
-  case object Full extends ShowUnit
-}
