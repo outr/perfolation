@@ -1,6 +1,6 @@
 package spec
 
-import perfolation.unit.information._
+import perfolation.unit._
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.Matchers

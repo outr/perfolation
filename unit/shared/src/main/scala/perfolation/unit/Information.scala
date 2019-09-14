@@ -1,4 +1,4 @@
-package perfolation.unit.information
+package perfolation.unit
 
 import perfolation._
 import perfolation.numeric.{Grouping, RoundingMode}
@@ -60,7 +60,7 @@ object Information {
     lazy val Yottabyte: Information = Zettabyte * Kilobyte
 
     lazy val all: List[Information] = List(Byte, Kilobyte, Megabyte, Gigabyte, Terabyte, Petabyte, Exabyte, Zettabyte, Yottabyte)
-    private[information] lazy val map: Map[Information, InformationDetail] = Map(
+    private[unit] lazy val map: Map[Information, InformationDetail] = Map(
       Byte -> InformationDetail("b", "byte"),
       Kilobyte -> InformationDetail("KiB", "kibibyte"),
       Megabyte -> InformationDetail("MiB", "mebibyte"),
@@ -71,7 +71,7 @@ object Information {
       Zettabyte -> InformationDetail("ZiB", "zebibyte"),
       Yottabyte -> InformationDetail("YiB", "yobibyte")
     )
-    private[information] lazy val largestToSmallest = all.reverse
+    private[unit] lazy val largestToSmallest = all.reverse
   }
   object decimal {
     private val base: Long = 1000L
@@ -87,7 +87,7 @@ object Information {
     lazy val Yottabyte: Information = Zettabyte * Kilobyte
 
     lazy val all: List[Information] = List(Byte, Kilobyte, Megabyte, Gigabyte, Terabyte, Petabyte, Exabyte, Zettabyte, Yottabyte)
-    private[information] lazy val map: Map[Information, InformationDetail] = Map(
+    private[unit] lazy val map: Map[Information, InformationDetail] = Map(
       Byte -> InformationDetail("b", "byte"),
       Kilobyte -> InformationDetail("kb", "kilobyte"),
       Megabyte -> InformationDetail("mb", "megabyte"),
@@ -98,7 +98,7 @@ object Information {
       Zettabyte -> InformationDetail("zb", "zettabyte"),
       Yottabyte -> InformationDetail("yb", "yottabyte")
     )
-    private[information] lazy val largestToSmallest = all.reverse
+    private[unit] lazy val largestToSmallest = all.reverse
   }
 
   def isBinary: Boolean = usingBinary

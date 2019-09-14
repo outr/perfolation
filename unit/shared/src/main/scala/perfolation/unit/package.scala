@@ -1,8 +1,8 @@
-package perfolation.unit
+package perfolation
 
 import scala.language.implicitConversions
 
-package object information {
+package object unit {
   implicit def long2Information(bytes: Long): Information = new Information(bytes)
   implicit def double2Information(bytes: Double): Information = new Information(bytes.toLong)
   implicit def bigInt2Information(bytes: BigInt): Information = new Information(bytes)
