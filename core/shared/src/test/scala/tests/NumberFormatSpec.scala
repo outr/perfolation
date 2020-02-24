@@ -1,7 +1,7 @@
 package tests
 
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.Matchers
 import perfolation.numeric.{FastNumber, Grouping, RoundingMode}
 
 class NumberFormatSpec extends AnyWordSpec with Matchers {

@@ -1,9 +1,8 @@
 package spec
 
+import org.scalatest.matchers.should.Matchers
 import perfolation.unit._
-
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.Matchers
 
 class InformationSpec extends AnyWordSpec with Matchers {
   "Information" when {

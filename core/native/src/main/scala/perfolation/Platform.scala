@@ -1,6 +1,6 @@
 package perfolation
 
-import scala.scalanative.native.stackalloc
+import scala.scalanative.unsafe.stackalloc
 import scala.scalanative.posix.time.time_t
 
 object Platform {

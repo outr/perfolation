@@ -2,9 +2,9 @@ import sbtcrossproject.CrossPlugin.autoImport.crossProject
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.1.5"
-scalaVersion in ThisBuild := "2.13.0"
-crossScalaVersions in ThisBuild := List("2.12.8", "2.11.12", "2.13.0")
+version in ThisBuild := "1.1.6-SNAPSHOT"
+scalaVersion in ThisBuild := "2.13.1"
+crossScalaVersions in ThisBuild := List("2.12.10", "2.11.12", "2.13.1")
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
 publishTo in ThisBuild := sonatypePublishTo.value
@@ -24,9 +24,9 @@ developers in ThisBuild := List(
 )
 
 // Dependency versions
-val scalatestVersion = "3.1.0-SNAP13"
-val scalacheckVersion = "1.14.0"
-val testInterfaceVersion = "0.3.9"
+val scalatestVersion = "3.2.0-M2"
+//val scalacheckVersion = "1.14.0"
+//val testInterfaceVersion = "0.3.9"
 
 lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .in(file("macros"))
@@ -53,16 +53,8 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
       "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
     )
   )
-  .jvmSettings(
-    libraryDependencies ++= Seq(
-      "org.scalacheck" %% "scalacheck" % scalacheckVersion % "test"
-    )
-  )
   .nativeSettings(
     nativeLinkStubs := true,
-    libraryDependencies ++= Seq(
-      "org.scala-native" %%% "test-interface" % testInterfaceVersion
-    ),
     scalaVersion := "2.11.12",
     crossScalaVersions := Seq("2.11.12")
   )
@@ -80,16 +72,8 @@ lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
       "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
     )
   )
-  .jvmSettings(
-    libraryDependencies ++= Seq(
-      "org.scalacheck" %% "scalacheck" % scalacheckVersion % "test"
-    )
-  )
   .nativeSettings(
     nativeLinkStubs := true,
-    libraryDependencies ++= Seq(
-      "org.scala-native" %%% "test-interface" % testInterfaceVersion
-    ),
     scalaVersion := "2.11.12",
     crossScalaVersions := Seq("2.11.12")
   )
