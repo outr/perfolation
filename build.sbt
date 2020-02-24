@@ -25,8 +25,8 @@ developers in ThisBuild := List(
 
 // Dependency versions
 val scalatestVersion = "3.2.0-M2"
-//val scalacheckVersion = "1.14.0"
-//val testInterfaceVersion = "0.3.9"
+val scalacheckVersion = "1.14.3"
+val testInterfaceVersion = "0.4.0-M2"
 
 lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .in(file("macros"))
@@ -53,8 +53,16 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
       "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
     )
   )
+  .jvmSettings(
+    libraryDependencies ++= Seq(
+      "org.scalacheck" %% "scalacheck" % scalacheckVersion % "test"
+    )
+  )
   .nativeSettings(
     nativeLinkStubs := true,
+    libraryDependencies ++= Seq(
+      "org.scala-native" %%% "test-interface" % testInterfaceVersion
+    ),
     scalaVersion := "2.11.12",
     crossScalaVersions := Seq("2.11.12")
   )
@@ -72,8 +80,16 @@ lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
       "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
     )
   )
+  .jvmSettings(
+    libraryDependencies ++= Seq(
+      "org.scalacheck" %% "scalacheck" % scalacheckVersion % "test"
+    )
+  )
   .nativeSettings(
     nativeLinkStubs := true,
+    libraryDependencies ++= Seq(
+      "org.scala-native" %%% "test-interface" % testInterfaceVersion
+    ),
     scalaVersion := "2.11.12",
     crossScalaVersions := Seq("2.11.12")
   )
