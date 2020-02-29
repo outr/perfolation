@@ -31,7 +31,7 @@ val commonNativeSettings = Seq(
   scalaVersion := "2.11.12",
   crossScalaVersions := Seq("2.11.12"),
   nativeLinkStubs := true,
-  test := {}
+  Test / test := {}
 )
 
 lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
