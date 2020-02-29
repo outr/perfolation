@@ -1,4 +1,4 @@
-import sbtcrossproject.CrossPlugin.autoImport.crossProject
+import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
@@ -24,79 +24,53 @@ developers in ThisBuild := List(
 )
 
 // Dependency versions
-val scalatestVersion = "3.2.0-M2"
-val scalacheckVersion = "1.14.3"
+val scalatestVersion = "3.2.0-M3"
 val testInterfaceVersion = "0.4.0-M2"
 
+val commonNativeSettings = Seq(
+  scalaVersion := "2.11.12",
+  crossScalaVersions := Seq("2.11.12"),
+  nativeLinkStubs := true,
+  test := {}
+)
+
 lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
-  .in(file("macros"))
+  .crossType(CrossType.Pure)
   .settings(
     name := "perfolation-macros",
     libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value,
     publishArtifact in Test := false
   )
   .nativeSettings(
-    scalaVersion := "2.11.12",
+    commonNativeSettings
   )
 
-lazy val macrosJS = macros.js
-lazy val macrosJVM = macros.jvm
-lazy val macrosNative = macros.native
-
 lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
-  .in(file("core"))
   .dependsOn(macros)
   .settings(
     name := "perfolation",
     libraryDependencies ++= Seq(
-      "org.scala-lang" % "scala-reflect" % scalaVersion.value,
       "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
     )
   )
-  .jvmSettings(
-    libraryDependencies ++= Seq(
-      "org.scalacheck" %% "scalacheck" % scalacheckVersion % "test"
-    )
-  )
   .nativeSettings(
-    nativeLinkStubs := true,
-    libraryDependencies ++= Seq(
-      "org.scala-native" %%% "test-interface" % testInterfaceVersion
-    ),
-    scalaVersion := "2.11.12",
-    crossScalaVersions := Seq("2.11.12")
+    commonNativeSettings
   )
 
-lazy val coreJS = core.js
 lazy val coreJVM = core.jvm
-lazy val coreNative = core.native
 
 lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
-  .in(file("unit"))
+  .crossType(CrossType.Pure)
   .dependsOn(core)
   .settings(
     name := "perfolation-unit",
     libraryDependencies ++= Seq(
-      "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
-    )
-  )
-  .jvmSettings(
-    libraryDependencies ++= Seq(
-      "org.scalacheck" %% "scalacheck" % scalacheckVersion % "test"
+      "org.scalatest" %%% "scalatest" % scalatestVersion % Test
     )
   )
   .nativeSettings(
-    nativeLinkStubs := true,
-    libraryDependencies ++= Seq(
-      "org.scala-native" %%% "test-interface" % testInterfaceVersion
-    ),
-    scalaVersion := "2.11.12",
-    crossScalaVersions := Seq("2.11.12")
+    commonNativeSettings
   )
-
-lazy val unitJS = unit.js
-lazy val unitJVM = unit.jvm
-lazy val unitNative = unit.native
 
 lazy val benchmarks = project
   .in(file("benchmarks"))

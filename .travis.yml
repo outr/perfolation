@@ -8,9 +8,10 @@ jdk:
 before_script:
   - curl https://raw.githubusercontent.com/scala-native/scala-native/master/scripts/travis_setup.sh | bash -x
 script:
-  - sbt clean compile coreJVM/test coreJS/test
+  - ./test.sh
 cache:
   directories:
+    - $HOME/.cache/coursier/v1
     - $HOME/.ivy2/cache
     - $HOME/.sbt/boot
 before_cache:
