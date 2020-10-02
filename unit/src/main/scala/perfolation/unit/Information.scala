@@ -3,6 +3,8 @@ package perfolation.unit
 import perfolation._
 import perfolation.numeric.{Grouping, RoundingMode}
 
+import scala.language.implicitConversions
+
 class Information(val bytes: BigInt) extends AnyVal {
   def *(that: Information): Information = new Information(this.bytes * that.bytes)
 
@@ -21,8 +23,8 @@ class Information(val bytes: BigInt) extends AnyVal {
     val s = value.f(i, f, maxI, maxF, g, rm)
     showUnit match {
       case ShowUnit.None => s
-      case ShowUnit.Abbreviation => p"$s ${d.abbreviation}"
-      case ShowUnit.Full => p"$s ${d.full}"
+      case ShowUnit.Abbreviation => s"$s ${d.abbreviation}"
+      case ShowUnit.Full => s"$s ${d.full}"
     }
   }
 

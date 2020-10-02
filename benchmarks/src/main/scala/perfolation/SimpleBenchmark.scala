@@ -20,10 +20,10 @@ class SimpleBenchmark {
 
   @Benchmark
   def doubleWithFFormat: String =
-    p"${123.456.f()}"
+    s"${123.456.f()}"
 
   @Benchmark
   def longWithFFormat: String =
-    p"${1234567.f()}"
+    s"${1234567.f()}"
 
 }

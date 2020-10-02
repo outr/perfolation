@@ -2,9 +2,8 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.1.7"
-scalaVersion in ThisBuild := "2.13.1"
-crossScalaVersions in ThisBuild := List("2.12.10", "2.11.12", "2.13.1")
+version in ThisBuild := "1.1.8-SNAPSHOT"
+scalaVersion in ThisBuild := "2.13.3"
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
 publishTo in ThisBuild := sonatypePublishTo.value
@@ -24,8 +23,19 @@ developers in ThisBuild := List(
 )
 
 // Dependency versions
-val scalatestVersion = "3.2.0-M3"
+val scalatestVersion = "3.2.2"
 val testInterfaceVersion = "0.4.0-M2"
+
+lazy val root = project.in(file("."))
+  .aggregate(
+    coreJS, coreJVM, coreNative,
+    unitJS, unitJVM, unitNative
+  )
+  .settings(
+    name := "perfolation",
+    publish := {},
+    publishLocal := {}
+  )
 
 val commonNativeSettings = Seq(
   scalaVersion := "2.11.12",
@@ -34,30 +44,26 @@ val commonNativeSettings = Seq(
   Test / test := {}
 )
 
-lazy val macros = crossProject(JVMPlatform, JSPlatform, NativePlatform)
-  .crossType(CrossType.Pure)
-  .settings(
-    name := "perfolation-macros",
-    libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-    publishArtifact in Test := false
-  )
-  .nativeSettings(
-    commonNativeSettings
-  )
-
 lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
-  .dependsOn(macros)
   .settings(
     name := "perfolation",
     libraryDependencies ++= Seq(
       "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
     )
   )
+  .jvmSettings(
+    crossScalaVersions := List("2.12.12", "2.11.12", "2.13.3", "0.27.0-RC1")
+  )
+  .jsSettings(
+    crossScalaVersions := List("2.12.12", "2.11.12", "2.13.3")
+  )
   .nativeSettings(
     commonNativeSettings
   )
 
+lazy val coreJS = core.js
 lazy val coreJVM = core.jvm
+lazy val coreNative = core.native
 
 lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .crossType(CrossType.Pure)
@@ -68,9 +74,19 @@ lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
       "org.scalatest" %%% "scalatest" % scalatestVersion % Test
     )
   )
+  .jvmSettings(
+    crossScalaVersions := List("2.12.12", "2.11.12", "2.13.3", "0.27.0-RC1")
+  )
+  .jsSettings(
+    crossScalaVersions := List("2.12.12", "2.11.12", "2.13.3")
+  )
   .nativeSettings(
     commonNativeSettings
   )
+
+lazy val unitJS = unit.js
+lazy val unitJVM = unit.jvm
+lazy val unitNative = unit.native
 
 lazy val benchmarks = project
   .in(file("benchmarks"))
@@ -79,5 +95,6 @@ lazy val benchmarks = project
   .settings(
     libraryDependencies ++= Seq(
       "pl.project13.scala" % "sbt-jmh-extras" % "0.3.7"
-    )
+    ),
+    crossScalaVersions := List("2.13.3")
   )

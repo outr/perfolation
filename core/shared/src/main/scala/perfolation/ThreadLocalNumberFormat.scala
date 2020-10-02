@@ -5,9 +5,6 @@ import java.text.NumberFormat
 import java.util.Currency
 
 object ThreadLocalNumberFormat {
-  // Make sure the platform is initialized
-  Platform
-
   private val threadLocalNumberFormat = new ThreadLocal[NumberFormat]{
     override protected def initialValue(): NumberFormat = NumberFormat.getInstance()
   }

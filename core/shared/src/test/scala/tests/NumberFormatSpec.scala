@@ -4,6 +4,8 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import perfolation.numeric.{FastNumber, Grouping, RoundingMode}
 
+import scala.language.implicitConversions
+
 class NumberFormatSpec extends AnyWordSpec with Matchers {
   "Number Formatting" should {
     import perfolation._

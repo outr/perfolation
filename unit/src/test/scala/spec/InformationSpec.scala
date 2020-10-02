@@ -4,6 +4,8 @@ import org.scalatest.matchers.should.Matchers
 import perfolation.unit._
 import org.scalatest.wordspec.AnyWordSpec
 
+import scala.language.implicitConversions
+
 class InformationSpec extends AnyWordSpec with Matchers {
   "Information" when {
     "using binary" should {

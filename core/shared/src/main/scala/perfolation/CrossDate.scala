@@ -1,5 +1,7 @@
 package perfolation
 
+import scala.language.implicitConversions
+
 import NumberFormatUtil._
 
 trait CrossDate extends Any {
@@ -127,7 +129,7 @@ trait CrossDate extends Any {
     */
   def z: String = {
     val sign = if (timeZoneOffsetMillis >= 0) "+" else "-"
-    p"$sign${timeZoneOffsetHH.f(2)}$timeZoneOffsetMM"
+    s"$sign${timeZoneOffsetHH.f(2)}$timeZoneOffsetMM"
   }
   /**
     * A string representing the abbreviation for the time zone. This value will be adjusted as necessary for Daylight Saving Time.
@@ -196,28 +198,28 @@ trait CrossDate extends Any {
   /**
     * Time formatted for the 24-hour clock as "%tH:%tM"
     */
-  def R: String = p"$H:$M"
+  def R: String = s"$H:$M"
   /**
     * Time formatted for the 24-hour clock as "%tH:%tM:%tS".
     */
-  def T: String = p"$H:$M:$S"
+  def T: String = s"$H:$M:$S"
   /**
     * Time formatted for the 12-hour clock as "%tI:%tM:%tS %Tp". The location of the morning or afternoon marker ('%Tp')
     * may be locale-dependent.
     */
-  def r: String = p"$I:$M:$S:$p"
+  def r: String = s"$I:$M:$S:$p"
   /**
     * Date formatted as "%tm/%td/%ty".
     */
-  def D: String = p"$m/$d/$y"
+  def D: String = s"$m/$d/$y"
   /**
     * 	ISO 8601 complete date formatted as "%tY-%tm-%td".
     */
-  def F: String = p"$Y-$m-$d"
+  def F: String = s"$Y-$m-$d"
   /**
     * Date and time formatted as "%ta %tb %td %tT %tZ %tY", e.g. "Sun Jul 20 16:17:00 EDT 1969".
     */
-  def c: String = p"$a $b $d $T $z $Y"
+  def c: String = s"$a $b $d $T $z $Y"
 }
 
 object CrossDate {
