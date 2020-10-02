@@ -2,7 +2,7 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.1.8-SNAPSHOT"
+version in ThisBuild := "1.2.0-SNAPSHOT"
 scalaVersion in ThisBuild := "2.13.3"
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
