@@ -2,7 +2,7 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.2.0"
+version in ThisBuild := "1.2.1-SNAPSHOT"
 scalaVersion in ThisBuild := "2.13.3"
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
@@ -21,6 +21,9 @@ scmInfo in ThisBuild := Some(
 developers in ThisBuild := List(
   Developer(id="darkfrog", name="Matt Hicks", email="matt@matthicks.com", url=url("http://matthicks.com"))
 )
+
+val scalaJVMVersions = List("2.12.12", "2.11.12", "2.13.3", "3.0.0-M1")
+val scalaJSVersions = List("2.12.12", "2.11.12", "2.13.3")
 
 // Dependency versions
 val scalatestVersion = "3.2.2"
@@ -52,10 +55,10 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
     )
   )
   .jvmSettings(
-    crossScalaVersions := List("2.12.12", "2.11.12", "2.13.3", "0.27.0-RC1")
+    crossScalaVersions := scalaJVMVersions
   )
   .jsSettings(
-    crossScalaVersions := List("2.12.12", "2.11.12", "2.13.3")
+    crossScalaVersions := scalaJSVersions
   )
   .nativeSettings(
     commonNativeSettings
@@ -75,10 +78,10 @@ lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
     )
   )
   .jvmSettings(
-    crossScalaVersions := List("2.12.12", "2.11.12", "2.13.3", "0.27.0-RC1")
+    crossScalaVersions := scalaJVMVersions
   )
   .jsSettings(
-    crossScalaVersions := List("2.12.12", "2.11.12", "2.13.3")
+    crossScalaVersions := scalaJSVersions
   )
   .nativeSettings(
     commonNativeSettings
