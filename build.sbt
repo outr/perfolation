@@ -2,7 +2,7 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.2.1-SNAPSHOT"
+version in ThisBuild := "1.2.2-SNAPSHOT"
 scalaVersion in ThisBuild := "2.13.3"
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
@@ -26,7 +26,7 @@ val scalaJVMVersions = List("2.12.12", "2.11.12", "2.13.3", "3.0.0-M1")
 val scalaJSVersions = List("2.12.12", "2.11.12", "2.13.3")
 
 // Dependency versions
-val scalatestVersion = "3.2.2"
+val scalatestVersion = "3.2.3"
 val testInterfaceVersion = "0.4.0-M2"
 
 lazy val root = project.in(file("."))
