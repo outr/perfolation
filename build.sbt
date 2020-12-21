@@ -2,8 +2,8 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.2.2"
-scalaVersion in ThisBuild := "2.13.3"
+version in ThisBuild := "1.2.3-SNAPSHOT"
+scalaVersion in ThisBuild := "2.13.4"
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
 publishTo in ThisBuild := sonatypePublishTo.value
@@ -22,12 +22,11 @@ developers in ThisBuild := List(
   Developer(id="darkfrog", name="Matt Hicks", email="matt@matthicks.com", url=url("http://matthicks.com"))
 )
 
-val scalaJVMVersions = List("2.12.12", "2.11.12", "2.13.3", "3.0.0-M1")
-val scalaJSVersions = List("2.12.12", "2.11.12", "2.13.3")
+val scalaJVMVersions = List("2.12.12", "2.11.12", "2.13.4", "3.0.0-M3")
+val scalaJSVersions = List("2.12.12", "2.11.12", "2.13.4")
 
 // Dependency versions
 val scalatestVersion = "3.2.3"
-val testInterfaceVersion = "0.4.0-M2"
 
 lazy val root = project.in(file("."))
   .aggregate(
@@ -49,16 +48,24 @@ val commonNativeSettings = Seq(
 
 lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .settings(
-    name := "perfolation",
+    name := "perfolation"
+  )
+  .jvmSettings(
+    crossScalaVersions := scalaJVMVersions,
     libraryDependencies ++= Seq(
       "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
     )
   )
-  .jvmSettings(
-    crossScalaVersions := scalaJVMVersions
-  )
   .jsSettings(
-    crossScalaVersions := scalaJSVersions
+    crossScalaVersions := scalaJSVersions,
+    test := {},                 // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+    libraryDependencies ++= (
+      if (isDotty.value) {      // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+        Nil
+      } else {
+        List("org.scalatest" %%% "scalatest" % scalatestVersion % "test")
+      }
+    )
   )
   .nativeSettings(
     commonNativeSettings
@@ -72,16 +79,24 @@ lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .crossType(CrossType.Pure)
   .dependsOn(core)
   .settings(
-    name := "perfolation-unit",
-    libraryDependencies ++= Seq(
-      "org.scalatest" %%% "scalatest" % scalatestVersion % Test
-    )
+    name := "perfolation-unit"
   )
   .jvmSettings(
-    crossScalaVersions := scalaJVMVersions
+    crossScalaVersions := scalaJVMVersions,
+    libraryDependencies ++= Seq(
+      "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
+    )
   )
   .jsSettings(
-    crossScalaVersions := scalaJSVersions
+    crossScalaVersions := scalaJSVersions,
+    test := {},                 // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+    libraryDependencies ++= (
+      if (isDotty.value) {      // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+        Nil
+      } else {
+        List("org.scalatest" %%% "scalatest" % scalatestVersion % "test")
+      }
+    )
   )
   .nativeSettings(
     commonNativeSettings
@@ -99,5 +114,5 @@ lazy val benchmarks = project
     libraryDependencies ++= Seq(
       "pl.project13.scala" % "sbt-jmh-extras" % "0.3.7"
     ),
-    crossScalaVersions := List("2.13.3")
+    crossScalaVersions := List("2.13.4")
   )
