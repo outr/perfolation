@@ -1,12 +1,8 @@
-sudo: required
-dist: trusty
+os: linux
+dist: bionic
 language: scala
-scala:
-  - 2.12.6
 jdk:
-  - oraclejdk8
-before_script:
-  - curl https://raw.githubusercontent.com/scala-native/scala-native/master/scripts/travis_setup.sh | bash -x
+  - openjdk8
 script:
   - ./test.sh
 cache:

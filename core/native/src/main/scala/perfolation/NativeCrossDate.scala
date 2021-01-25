@@ -6,7 +6,7 @@ import scala.scalanative.posix.time.tm
 import scala.scalanative.unsafe.{Ptr, fromCString}
 
 class NativeCrossDate(override val milliseconds: Long, dms: Ptr[time.time_t]) extends CrossDate {
-  time.tzset
+  time.tzset()
   // tmOps object that allows us to access localtime data
   val date = new tmOps(time.localtime(dms).asInstanceOf[Ptr[tm]])
 

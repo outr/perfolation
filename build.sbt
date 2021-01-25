@@ -1,9 +1,13 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
+val allScalaVersions = List("2.12.13", "2.11.12", "2.13.4", "3.0.0-M3")
+val scala2Versions = allScalaVersions.filter(_.startsWith("2."))
+
 name := "perfolation"
 organization in ThisBuild := "com.outr"
 version in ThisBuild := "1.2.3"
 scalaVersion in ThisBuild := "2.13.4"
+crossScalaVersions in ThisBuild := allScalaVersions
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
 publishTo in ThisBuild := sonatypePublishTo.value
@@ -22,16 +26,13 @@ developers in ThisBuild := List(
   Developer(id="darkfrog", name="Matt Hicks", email="matt@matthicks.com", url=url("http://matthicks.com"))
 )
 
-val scalaJVMVersions = List("2.12.12", "2.11.12", "2.13.4", "3.0.0-M3")
-val scalaJSVersions = List("2.12.12", "2.11.12", "2.13.4")
-
 // Dependency versions
-val scalatestVersion = "3.2.3"
+val scalatestVersion = "3.2.4-M1"
 
 lazy val root = project.in(file("."))
   .aggregate(
-    coreJS, coreJVM, coreNative,
-    unitJS, unitJVM, unitNative
+    core.js, core.jvm, core.native,
+    unit.js, unit.jvm, unit.native
   )
   .settings(
     name := "perfolation",
@@ -39,26 +40,23 @@ lazy val root = project.in(file("."))
     publishLocal := {}
   )
 
-val commonNativeSettings = Seq(
-  scalaVersion := "2.11.12",
-  crossScalaVersions := Seq("2.11.12"),
-  nativeLinkStubs := true,
-  Test / test := {}
-)
-
 lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .settings(
     name := "perfolation"
   )
   .jvmSettings(
-    crossScalaVersions := scalaJVMVersions,
     libraryDependencies ++= Seq(
       "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
     )
   )
   .jsSettings(
-    crossScalaVersions := scalaJSVersions,
-    test := {},                 // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+    Test / sources := {
+      if (isDotty.value) {        // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+        Nil
+      } else {
+        (Test / sources).value
+      }
+    },
     libraryDependencies ++= (
       if (isDotty.value) {      // Temporary work-around for ScalaTest not working with Scala.js on Dotty
         Nil
@@ -68,12 +66,11 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
     )
   )
   .nativeSettings(
-    commonNativeSettings
+    crossScalaVersions := scala2Versions,
+    libraryDependencies ++= Seq(
+      "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
+    )
   )
-
-lazy val coreJS = core.js
-lazy val coreJVM = core.jvm
-lazy val coreNative = core.native
 
 lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .crossType(CrossType.Pure)
@@ -82,14 +79,18 @@ lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
     name := "perfolation-unit"
   )
   .jvmSettings(
-    crossScalaVersions := scalaJVMVersions,
     libraryDependencies ++= Seq(
       "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
     )
   )
   .jsSettings(
-    crossScalaVersions := scalaJSVersions,
-    test := {},                 // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+    Test / sources := {
+      if (isDotty.value) {        // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+        Nil
+      } else {
+        (Test / sources).value
+      }
+    },
     libraryDependencies ++= (
       if (isDotty.value) {      // Temporary work-around for ScalaTest not working with Scala.js on Dotty
         Nil
@@ -99,17 +100,16 @@ lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
     )
   )
   .nativeSettings(
-    commonNativeSettings
+    crossScalaVersions := scala2Versions,
+    libraryDependencies ++= Seq(
+      "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
+    )
   )
-
-lazy val unitJS = unit.js
-lazy val unitJVM = unit.jvm
-lazy val unitNative = unit.native
 
 lazy val benchmarks = project
   .in(file("benchmarks"))
   .enablePlugins(JmhPlugin)
-  .dependsOn(coreJVM)
+  .dependsOn(core.jvm)
   .settings(
     libraryDependencies ++= Seq(
       "pl.project13.scala" % "sbt-jmh-extras" % "0.3.7"
