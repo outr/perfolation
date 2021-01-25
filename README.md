@@ -43,7 +43,8 @@ p"Time: ${timeInMillis.t.T}, Date: ${timeInMillis.t.D}"
 
 ## Getting Started
 
-Support for Scala (2.11, 2.12), Scala.js (2.11, 2.12), and ScalaNative (2.11)
+Support for Scala (2.11, 2.12, 2.13, 3.0.0-M3), Scala.js (2.11, 2.12, 2.13, 3.0.0-M3)
+and ScalaNative (2.11, 2.12, 2.13)
 
 SBT Dependencies:
 
