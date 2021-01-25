@@ -50,7 +50,13 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
     )
   )
   .jsSettings(
-    test := {},                 // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+    Test / sources := {
+      if (isDotty.value) {        // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+        Nil
+      } else {
+        (Test / sources).value
+      }
+    },
     libraryDependencies ++= (
       if (isDotty.value) {      // Temporary work-around for ScalaTest not working with Scala.js on Dotty
         Nil
@@ -78,7 +84,13 @@ lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
     )
   )
   .jsSettings(
-    test := {},                 // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+    Test / sources := {
+      if (isDotty.value) {        // Temporary work-around for ScalaTest not working with Scala.js on Dotty
+        Nil
+      } else {
+        (Test / sources).value
+      }
+    },
     libraryDependencies ++= (
       if (isDotty.value) {      // Temporary work-around for ScalaTest not working with Scala.js on Dotty
         Nil
