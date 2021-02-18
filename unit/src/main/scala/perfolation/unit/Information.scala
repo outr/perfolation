@@ -8,7 +8,10 @@ import scala.language.implicitConversions
 class Information(val bytes: BigInt) extends AnyVal {
   def *(that: Information): Information = new Information(this.bytes * that.bytes)
 
-  def unit: Information = Information.largestToSmallest.find(u => bytes - u.bytes > 0L).get
+  def unit: Information = {
+    val abs = math.abs(bytes.toLong)
+    Information.largestToSmallest.find(u => abs - u.bytes >= 0L).getOrElse(Information.Byte)
+  }
 
   def format(i: Int = 1,
              f: Int = 2,

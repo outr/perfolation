@@ -74,5 +74,16 @@ class InformationSpec extends AnyWordSpec with Matchers {
         5.kb.toString should be("5.00 kb")
       }
     }
+    "formatting" should {
+      "convert to megabytes" in {
+        (5 * 1000 * 1000).b.format() should be("5.00 mb")
+      }
+      "convert to negative megabytes" in {
+        (-10 * 1000 * 1000).b.format() should be("-10.00 mb")
+      }
+      "convert 0 bytes" in {
+        0.b.format() should be("0.00 b")
+      }
+    }
   }
 }
