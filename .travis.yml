@@ -4,7 +4,7 @@ language: scala
 jdk:
   - openjdk8
 script:
-  - sbt +clean +test
+  - sbt clean coreJVM/test unitJVM/test
 cache:
   directories:
     - $HOME/.cache/coursier/v1
