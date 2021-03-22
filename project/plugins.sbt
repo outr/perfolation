@@ -9,5 +9,3 @@ addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.1.1")
 addSbtPlugin("pl.project13.scala" % "sbt-jmh" % "0.4.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0")
-
-addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.3")
