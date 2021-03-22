@@ -1,12 +1,11 @@
 package tests
 
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpec
+import testy.Spec
 import perfolation.numeric.{FastNumber, Grouping, RoundingMode}
 
 import scala.language.implicitConversions
 
-class NumberFormatSpec extends AnyWordSpec with Matchers {
+class NumberFormatSpec extends Spec {
   "Number Formatting" should {
     import perfolation._
 

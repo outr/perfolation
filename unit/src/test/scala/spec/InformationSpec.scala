@@ -1,12 +1,11 @@
 package spec
 
-import org.scalatest.matchers.should.Matchers
 import perfolation.unit._
-import org.scalatest.wordspec.AnyWordSpec
+import testy.Spec
 
 import scala.language.implicitConversions
 
-class InformationSpec extends AnyWordSpec with Matchers {
+class InformationSpec extends Spec {
   "Information" when {
     "using binary" should {
       "validate bytes" in {

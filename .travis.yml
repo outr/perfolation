@@ -1,15 +1,11 @@
-os: linux
-dist: bionic
+version: ~> 1.0
+import: scala/scala-dev:travis/default.yml
 language: scala
-jdk:
-  - openjdk8
-script:
-  - sbt clean coreJVM/test unitJVM/test
-cache:
-  directories:
-    - $HOME/.cache/coursier/v1
-    - $HOME/.ivy2/cache
-    - $HOME/.sbt/boot
-before_cache:
-  - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
-  - find $HOME/.sbt -name "*.lock" -delete
+scala:
+  - 2.13.5
+env:
+  - ADOPTOPENJDK=8     SCALAJS_VERSION=1.5.0  CACHE_WORKAROUND=see-PR-335
+script: sbt +clean +test
+notifications:
+  email:
+    - matt@matthicks.com

@@ -1,11 +1,10 @@
 package tests
 
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpec
+import testy.Spec
 
 import scala.language.implicitConversions
 
-class DateFormatSpec extends AnyWordSpec with Matchers {
+class DateFormatSpec extends Spec {
   "Date Formatting" should {
     import perfolation._
 
@@ -22,7 +21,7 @@ class DateFormatSpec extends AnyWordSpec with Matchers {
       date1.t.secondOfMinute should be(5)
       date1.t.secondsOfEpoch should be(date1 / 1000L)
       date1.t.S should be("05")
-      date1.t.s.toInt should be(date1 / 1000L)
+      date1.t.s.toLong should be(date1 / 1000L)
     }
     "retrieve minutes info" in {
       date1.t.minuteOfHour should be(56)

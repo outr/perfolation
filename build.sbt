@@ -5,8 +5,8 @@ val scala2Versions = allScalaVersions.filter(_.startsWith("2."))
 
 name := "perfolation"
 organization in ThisBuild := "com.outr"
-version in ThisBuild := "1.2.5"
-scalaVersion in ThisBuild := "2.13.4"
+version in ThisBuild := "1.2.6-SNAPSHOT"
+scalaVersion in ThisBuild := "2.13.5"
 crossScalaVersions in ThisBuild := allScalaVersions
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation")
 
@@ -27,7 +27,7 @@ developers in ThisBuild := List(
 )
 
 // Dependency versions
-val scalatestVersion = "3.2.6"
+val testyVersion: String = "1.0.1"
 
 lazy val root = project.in(file("."))
   .aggregate(
@@ -42,68 +42,34 @@ lazy val root = project.in(file("."))
 
 lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .settings(
-    name := "perfolation"
-  )
-  .jvmSettings(
+    name := "perfolation",
+    testFrameworks += new TestFramework("munit.Framework"),
     libraryDependencies ++= Seq(
-      "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
+      "com.outr" %%% "testy" % testyVersion % Test
     )
   )
   .jsSettings(
-    Test / sources := {
-      if (isDotty.value) {        // Temporary work-around for ScalaTest not working with Scala.js on Dotty
-        Nil
-      } else {
-        (Test / sources).value
-      }
-    },
-    libraryDependencies ++= (
-      if (isDotty.value) {      // Temporary work-around for ScalaTest not working with Scala.js on Dotty
-        Nil
-      } else {
-        List("org.scalatest" %%% "scalatest" % scalatestVersion % "test")
-      }
-    )
+    Test / scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) }
   )
   .nativeSettings(
-    crossScalaVersions := scala2Versions,
-    libraryDependencies ++= Seq(
-      "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
-    )
+    crossScalaVersions := scala2Versions
   )
 
 lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .crossType(CrossType.Pure)
   .dependsOn(core)
   .settings(
-    name := "perfolation-unit"
-  )
-  .jvmSettings(
+    name := "perfolation-unit",
+    testFrameworks += new TestFramework("munit.Framework"),
     libraryDependencies ++= Seq(
-      "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
+      "com.outr" %%% "testy" % testyVersion % Test
     )
   )
   .jsSettings(
-    Test / sources := {
-      if (isDotty.value) {        // Temporary work-around for ScalaTest not working with Scala.js on Dotty
-        Nil
-      } else {
-        (Test / sources).value
-      }
-    },
-    libraryDependencies ++= (
-      if (isDotty.value) {      // Temporary work-around for ScalaTest not working with Scala.js on Dotty
-        Nil
-      } else {
-        List("org.scalatest" %%% "scalatest" % scalatestVersion % "test")
-      }
-    )
+    Test / scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) }
   )
   .nativeSettings(
-    crossScalaVersions := scala2Versions,
-    libraryDependencies ++= Seq(
-      "org.scalatest" %%% "scalatest" % scalatestVersion % "test"
-    )
+    crossScalaVersions := scala2Versions
   )
 
 lazy val benchmarks = project
