@@ -5,7 +5,7 @@ val scala2Versions = allScalaVersions.filter(_.startsWith("2."))
 
 name := "perfolation"
 ThisBuild / organization := "com.outr"
-ThisBuild / version := "1.2.6-SNAPSHOT"
+ThisBuild / version := "1.2.6"
 ThisBuild / scalaVersion := "2.13.5"
 ThisBuild / crossScalaVersions := allScalaVersions
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
