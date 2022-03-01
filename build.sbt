@@ -1,6 +1,6 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-val allScalaVersions = List("2.12.13", "2.11.12", "2.13.8", "3.0.0-RC1", "3.0.0-RC2")
+val allScalaVersions = List("2.12.15", "2.11.12", "2.13.8", "3.0.0-RC1", "3.0.0-RC2")
 val scala2Versions = allScalaVersions.filter(_.startsWith("2."))
 
 name := "perfolation"
