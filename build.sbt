@@ -1,15 +1,16 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-val allScalaVersions = List("2.12.15", "2.11.12", "2.13.8", "3.0.0-RC1", "3.0.0-RC2")
-val scala2Versions = allScalaVersions.filter(_.startsWith("2."))
+val allScalaVersions = List("2.12.13", "2.11.12", "2.13.8", "3.1.1")
 
 name := "perfolation"
 ThisBuild / organization := "com.outr"
-ThisBuild / version := "1.2.6"
+ThisBuild / version := "1.2.9"
 ThisBuild / scalaVersion := "2.13.8"
 ThisBuild / crossScalaVersions := allScalaVersions
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
 
+ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
+ThisBuild / sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
 ThisBuild / publishTo := sonatypePublishTo.value
 ThisBuild / sonatypeProfileName := "com.outr"
 ThisBuild / publishMavenStyle := true
@@ -27,7 +28,7 @@ ThisBuild / developers := List(
 )
 
 // Dependency versions
-val testyVersion: String = "1.0.3"
+val scalaTestVersion: String = "3.2.11"
 
 lazy val root = project.in(file("."))
   .aggregate(
@@ -43,16 +44,9 @@ lazy val root = project.in(file("."))
 lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .settings(
     name := "perfolation",
-    testFrameworks += new TestFramework("munit.Framework"),
     libraryDependencies ++= Seq(
-      "com.outr" %%% "testy" % testyVersion % Test
+      "org.scalatest" %%% "scalatest" % scalaTestVersion % Test
     )
-  )
-  .jsSettings(
-    Test / scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) }
-  )
-  .nativeSettings(
-    crossScalaVersions := scala2Versions
   )
 
 lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
@@ -60,16 +54,9 @@ lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .dependsOn(core)
   .settings(
     name := "perfolation-unit",
-    testFrameworks += new TestFramework("munit.Framework"),
     libraryDependencies ++= Seq(
-      "com.outr" %%% "testy" % testyVersion % Test
+      "org.scalatest" %%% "scalatest" % scalaTestVersion % Test
     )
-  )
-  .jsSettings(
-    Test / scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) }
-  )
-  .nativeSettings(
-    crossScalaVersions := scala2Versions
   )
 
 lazy val benchmarks = project
@@ -80,5 +67,5 @@ lazy val benchmarks = project
     libraryDependencies ++= Seq(
       "pl.project13.scala" % "sbt-jmh-extras" % "0.3.7"
     ),
-    crossScalaVersions := List("2.13.4")
+    crossScalaVersions := List("2.13.8")
   )
