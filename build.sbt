@@ -45,7 +45,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .settings(
     name := "perfolation",
     libraryDependencies ++= Seq(
-      "org.scalatest" %%% "scalatest" % scalaTestVersion % Test
+      "org.scalatest" %% "scalatest" % scalaTestVersion % Test
     )
   )
 
@@ -55,7 +55,7 @@ lazy val unit = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .settings(
     name := "perfolation-unit",
     libraryDependencies ++= Seq(
-      "org.scalatest" %%% "scalatest" % scalaTestVersion % Test
+      "org.scalatest" %% "scalatest" % scalaTestVersion % Test
     )
   )
 

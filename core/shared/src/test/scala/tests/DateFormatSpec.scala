@@ -1,10 +1,11 @@
 package tests
 
-import testy.Spec
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 import scala.language.implicitConversions
 
-class DateFormatSpec extends Spec {
+class DateFormatSpec extends AnyWordSpec with Matchers {
   "Date Formatting" should {
     import perfolation._
 
