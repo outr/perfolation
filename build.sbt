@@ -28,7 +28,7 @@ ThisBuild / developers := List(
 )
 
 // Dependency versions
-val scalaTestVersion: String = "3.2.11"
+val scalaTestVersion: String = "3.2.14"
 
 lazy val root = project.in(file("."))
   .aggregate(
