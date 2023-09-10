@@ -6,6 +6,6 @@ addSbtPlugin("org.scala-native"   % "sbt-scala-native"              % "0.4.4")
 addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.12")
 addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.1.2")
 
-addSbtPlugin("pl.project13.scala" % "sbt-jmh" % "0.4.3")
+addSbtPlugin("pl.project13.scala" % "sbt-jmh" % "0.4.6")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.2")
