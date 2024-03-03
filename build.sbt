@@ -1,11 +1,11 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-val allScalaVersions = List("2.12.13", "2.11.12", "2.13.8", "3.1.1")
+val allScalaVersions = List("2.12.13", "2.11.12", "2.13.13", "3.1.1")
 
 name := "perfolation"
 ThisBuild / organization := "com.outr"
 ThisBuild / version := "1.2.9"
-ThisBuild / scalaVersion := "2.13.8"
+ThisBuild / scalaVersion := "2.13.13"
 ThisBuild / crossScalaVersions := allScalaVersions
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
 
@@ -67,5 +67,5 @@ lazy val benchmarks = project
     libraryDependencies ++= Seq(
       "pl.project13.scala" % "sbt-jmh-extras" % "0.3.7"
     ),
-    crossScalaVersions := List("2.13.8")
+    crossScalaVersions := List("2.13.13")
   )
