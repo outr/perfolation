@@ -1,10 +1,10 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-val allScalaVersions = List("2.12.19", "2.11.12", "2.13.13", "3.1.1")
+val allScalaVersions = List("2.12.19", "2.13.13", "3.3.3")
 
 name := "perfolation"
 ThisBuild / organization := "com.outr"
-ThisBuild / version := "1.2.9"
+ThisBuild / version := "1.2.10"
 ThisBuild / scalaVersion := "2.13.13"
 ThisBuild / crossScalaVersions := allScalaVersions
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")

@@ -227,11 +227,10 @@ object CrossDate {
 
   def apply(l: Long): CrossDate = Option(cache.get()) match {
     case Some(d) if d.milliseconds == l => d
-    case _ => {
+    case _ =>
       val d = Platform.createDate(l)
       cache.set(d)
       d
-    }
   }
 
   object Week {
