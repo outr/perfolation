@@ -4,7 +4,7 @@ val allScalaVersions = List("2.12.19", "2.13.14", "3.3.3")
 
 name := "perfolation"
 ThisBuild / organization := "com.outr"
-ThisBuild / version := "1.2.10"
+ThisBuild / version := "1.2.11"
 ThisBuild / scalaVersion := "2.13.14"
 ThisBuild / crossScalaVersions := allScalaVersions
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
