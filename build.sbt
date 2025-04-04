@@ -1,6 +1,12 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-val allScalaVersions = List("2.12.19", "2.13.16", "3.3.5")
+val allScalaVersions = List(
+  "2.12.20",
+  
+  "2.13.16",
+  
+  "3.3.5"
+)
 
 name := "perfolation"
 ThisBuild / organization := "com.outr"
