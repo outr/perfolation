@@ -11,7 +11,7 @@ val allScalaVersions = List(
 name := "perfolation"
 ThisBuild / organization := "com.outr"
 ThisBuild / version := "1.2.12"
-ThisBuild / scalaVersion := "2.13.16"
+ThisBuild / scalaVersion := "2.13.17"
 ThisBuild / crossScalaVersions := allScalaVersions
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
 
@@ -73,5 +73,5 @@ lazy val benchmarks = project
     libraryDependencies ++= Seq(
       "pl.project13.scala" % "sbt-jmh-extras" % "0.3.7"
     ),
-    crossScalaVersions := List("2.13.16")
+    crossScalaVersions := List("2.13.17")
   )
