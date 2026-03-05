@@ -14,12 +14,12 @@ Perfolation supports Scala on JVM, JS, and Native with support for 2.11, 2.12, 2
 
 Load the core dependency with SBT:
 ```sbt
-libraryDependencies += "com.outr" %% "perfolation" % "1.2.5"
+libraryDependencies += "com.outr" %%% "perfolation" % "1.3.0"
 ```
 
 Or the `unit` dependency for size conversions with SBT:
 ```sbt
-libraryDependencies += "com.outr" %% "perfolation-unit" % "1.2.5"
+libraryDependencies += "com.outr" %%% "perfolation-unit" % "1.3.0"
 ```
 
 ## Main Features
