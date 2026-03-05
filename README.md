@@ -10,7 +10,7 @@ library has changed to providing convenient features for formatting dates and nu
 
 ## Setup
 
-Perfolation supports Scala on JVM, JS, and Native with support for 2.11, 2.12, 2.13, and 3
+Perfolation supports Scala on JVM, JS, and Native with support for 2.12, 2.13, and 3
 
 Load the core dependency with SBT:
 ```sbt
