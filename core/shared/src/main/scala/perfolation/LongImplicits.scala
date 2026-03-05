@@ -1,9 +1,12 @@
 package perfolation
 
+import java.time.ZoneId
+
 import perfolation.numeric.{Grouping, NumericFormatter, RoundingMode}
 
 class LongImplicits(val l: Long) extends AnyVal {
   def t: CrossDate = CrossDate(l)
+  def t(zone: ZoneId): CrossDate = CrossDate(l, zone)
 
   /**
     * Format a numeric value

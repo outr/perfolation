@@ -1,5 +1,7 @@
 package perfolation
 
+import java.time.{Instant, ZoneId, ZonedDateTime}
+
 import scala.language.implicitConversions
 
 import NumberFormatUtil._
@@ -128,8 +130,12 @@ trait CrossDate extends Any {
     * RFC 822 style numeric time zone offset from GMT, e.g. -0800. This value will be adjusted as necessary for Daylight Saving Time.
     */
   def z: String = {
-    val sign = if (timeZoneOffsetMillis >= 0) "+" else "-"
-    s"$sign${timeZoneOffsetHH.f(2)}$timeZoneOffsetMM"
+    val totalMillis = timeZoneOffsetMillis
+    val sign = if (totalMillis >= 0) "+" else "-"
+    val absMins = math.abs(totalMillis) / (1000 * 60)
+    val hh = int(absMins / 60, 2)
+    val mm = int(absMins % 60, 2)
+    s"$sign$hh$mm"
   }
   /**
     * A string representing the abbreviation for the time zone. This value will be adjusted as necessary for Daylight Saving Time.
@@ -231,6 +237,12 @@ object CrossDate {
       val d = Platform.createDate(l)
       cache.set(d)
       d
+  }
+
+  def apply(l: Long, zone: ZoneId): CrossDate = {
+    val instant = Instant.ofEpochMilli(l)
+    val zdt = ZonedDateTime.ofInstant(instant, zone)
+    new ZonedCrossDate(l, zdt)
   }
 
   object Week {

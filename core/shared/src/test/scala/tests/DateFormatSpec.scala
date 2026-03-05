@@ -1,5 +1,7 @@
 package tests
 
+import java.time.ZoneId
+
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -65,20 +67,54 @@ class DateFormatSpec extends AnyWordSpec with Matchers {
       date1.t.Y should be("2018")
       date1.t.y should be("18")
     }
-    /*"retrieve miscellaneous info" in {
-      date1.t.timeZoneOffsetMM should be(300)
-      date1.t.timeZoneOffsetHH should be(5)
-      date1.t.timeZone should be("CDT")
-      date1.t.z should be("-05300")
-      date1.t.Z should be("CDT")
+  }
+  "Date Formatting with explicit timezone" should {
+    import perfolation._
+
+    val date1: Long = 1524606965775L
+    // 2018-04-24T21:56:05.775Z in UTC
+    val utc = ZoneId.of("UTC")
+    // 2018-04-24T16:56:05.775-05:00 in US/Central (CDT)
+    val cdt = ZoneId.of("America/Chicago")
+    // 2018-04-25T07:26:05.775+09:30 in Australia/Darwin (ACST, +09:30)
+    val acst = ZoneId.of("Australia/Darwin")
+
+    "format date in UTC" in {
+      val d = date1.t(utc)
+      d.hour24 should be(21)
+      d.minuteOfHour should be(56)
+      d.secondOfMinute should be(5)
+      d.milliOfSecond should be(775)
+      d.year should be(2018)
+      d.month should be(3)
+      d.dayOfMonth should be(24)
+      d.dayOfWeek should be(3)
+      d.isAM should be(false)
+      d.timeZoneOffsetMillis should be(0)
+      d.z should be("+0000")
+      d.F should be("2018-04-24")
+      d.T should be("21:56:05")
     }
-    "format a date properly" in {
-      date1.t.R should be("16:56")
-      date1.t.T should be("16:56:05")
-      date1.t.r should be("04:56:05:pm")
-      date1.t.D should be("04/24/18")
-      date1.t.F should be("2018-04-24")
-      date1.t.c should be("Tues Apr 24 16:56:05 -05300 2018")
-    }*/
+    "format date in America/Chicago (CDT)" in {
+      val d = date1.t(cdt)
+      d.hour24 should be(16)
+      d.minuteOfHour should be(56)
+      d.secondOfMinute should be(5)
+      d.year should be(2018)
+      d.month should be(3)
+      d.dayOfMonth should be(24)
+      d.timeZoneOffsetMillis should be(-5 * 3600 * 1000)
+      d.z should be("-0500")
+      d.F should be("2018-04-24")
+      d.T should be("16:56:05")
+    }
+    "format date with half-hour offset (Australia/Darwin, ACST +09:30)" in {
+      val d = date1.t(acst)
+      d.hour24 should be(7)
+      d.minuteOfHour should be(26)
+      d.dayOfMonth should be(25)
+      d.timeZoneOffsetMillis should be(9 * 3600 * 1000 + 30 * 60 * 1000)
+      d.z should be("+0930")
+    }
   }
 }
