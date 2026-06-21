@@ -31,7 +31,7 @@ ThisBuild / developers := List(
   Developer(id="darkfrog", name="Matt Hicks", email="matt@matthicks.com", url=url("http://matthicks.com"))
 )
 
-val scalaJavaTimeVersion: String = "2.6.0"
+val scalaJavaTimeVersion: String = "2.7.0"
 
 // Dependency versions
 val scalaTestVersion: String = "3.2.19"
