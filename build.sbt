@@ -2,7 +2,7 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 val scala212 = "2.12.21"
 
-val scala213 = "2.13.18"
+val scala213 = "3.9.0"
 
 val scala3 = "3.3.7"
 
@@ -75,5 +75,5 @@ lazy val benchmarks = project
     libraryDependencies ++= Seq(
       "pl.project13.scala" % "sbt-jmh-extras" % "0.3.7"
     ),
-    crossScalaVersions := List("2.13.18")
+    crossScalaVersions := List("3.9.0")
   )
