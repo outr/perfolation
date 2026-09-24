@@ -10,7 +10,7 @@ val allScalaVersions = List(scala3, scala213, scala212)
 
 name := "perfolation"
 ThisBuild / organization := "com.outr"
-ThisBuild / version := "1.3.0"
+ThisBuild / version := "1.3.1-SNAPSHOT"
 ThisBuild / scalaVersion := scala3
 ThisBuild / crossScalaVersions := allScalaVersions
 ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
@@ -51,9 +51,23 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .settings(
     name := "perfolation",
     libraryDependencies ++= Seq(
-      "io.github.cquiroz" %%% "scala-java-time" % scalaJavaTimeVersion,
-      "io.github.cquiroz" %%% "scala-java-time-tzdb" % scalaJavaTimeVersion,
       "org.scalatest" %%% "scalatest" % scalaTestVersion % Test
+    )
+  )
+  // java.time for Scala.js and Native, where the platform has none (the JVM has its own). The time-zone database is
+  // left to the application: it is over a megabyte of every browser bundle, only a named zone (`t(zone)` with
+  // "America/Chicago") needs it, and formatting in the local zone, as scribe does, goes through the platform's own
+  // date (`JavaScriptCrossDate`). An app that names zones adds scala-java-time-tzdb itself.
+  .jsSettings(
+    libraryDependencies ++= Seq(
+      "io.github.cquiroz" %%% "scala-java-time" % scalaJavaTimeVersion,
+      "io.github.cquiroz" %%% "scala-java-time-tzdb" % scalaJavaTimeVersion % Test
+    )
+  )
+  .nativeSettings(
+    libraryDependencies ++= Seq(
+      "io.github.cquiroz" %%% "scala-java-time" % scalaJavaTimeVersion,
+      "io.github.cquiroz" %%% "scala-java-time-tzdb" % scalaJavaTimeVersion % Test
     )
   )
 
